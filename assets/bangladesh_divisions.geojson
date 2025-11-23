@@ -1,0 +1,53 @@
+{
+"type": "FeatureCollection",
+"features": [
+{
+"type": "Feature",
+"properties": { "name": "Dhaka" },
+"geometry": {
+"type": "Polygon",
+"coordinates": [
+[
+[90.3, 23.8],
+[90.5, 23.8],
+[90.5, 23.6],
+[90.3, 23.6],
+[90.3, 23.8]
+]
+]
+}
+},
+{
+"type": "Feature",
+"properties": { "name": "Sylhet" },
+"geometry": {
+"type": "Polygon",
+"coordinates": [
+[
+[91.8, 24.9],
+[92.0, 24.9],
+[92.0, 24.7],
+[91.8, 24.7],
+[91.8, 24.9]
+]
+]
+}
+},
+{
+"type": "Feature",
+"properties": { "name": "Barisal" },
+"geometry": {
+"type": "Polygon",
+"coordinates": [
+[
+[90.3, 22.7],
+[90.5, 22.7],
+[90.5, 22.5],
+[90.3, 22.5],
+[90.3, 22.7]
+]
+]
+}
+}
+]
+}

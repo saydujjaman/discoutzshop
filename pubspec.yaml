@@ -1,0 +1,86 @@
+name: discountzshop
+description: "A all in one solution for discounts from all the brands in bangladesh."
+publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.0.6 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  # Icons
+  iconsax_flutter: ^1.0.0
+  cupertino_icons: ^1.0.8
+  font_awesome_flutter: ^10.8.0
+
+
+
+  # Utility Packages
+  http: ^1.3.0
+  intl: ^0.19.0
+  logger: ^2.3.0
+  url_launcher: ^6.3.1
+  flutter_native_splash: ^2.4.0
+  smooth_page_indicator: ^1.2.1
+  image_picker: ^1.0.5
+  image_cropper: ^5.0.1
+  flutter_spinkit: ^5.2.0
+  shared_preferences: ^2.2.2
+  permission_handler: ^11.3.1
+  flutter_svg: ^2.1.0
+#  flutter_widget_from_html: ^0.16.0
+  carousel_slider: ^5.0.0
+
+#  MAP
+  flutter_map: ^5.0.0
+  latlong2: ^0.9.1
+  geojson_vi: ^2.2.5
+
+  # State Management
+  #  get: ^4.6.6
+  get_storage: ^2.1.1
+  provider: ^6.1.2
+#  flutter_riverpod: ^2.6.1
+  webview_flutter: ^4.9.0
+  webview_flutter_android: ^3.16.7  # Latest version compatible with webview_flutter
+  webview_flutter_wkwebview: ^3.15.0 # Latest version compatible with webview_flutter
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  flutter_lints: ^4.0.0
+  flutter_launcher_icons: "^0.13.1"
+
+flutter_launcher_icons:
+  android: "launcher_icon"
+  ios: true
+  remove_alpha_ios: true
+  image_path: "assets/images/icons/discount_sho_logo.png"
+  adaptive_icon_foreground: "assets/images/icons/discount_sho_logo.png"
+  adaptive_icon_background: "#ffffff"
+  min_sdk_android: 21 # android min sdk min:16, default 21
+
+
+flutter:
+
+  uses-material-design: true
+
+  assets:
+    - assets/
+    - assets/images/
+    - assets/fonts/
+    - assets/bangladesh_divisions.geojson
+    - assets/images/bd.png
+
+
+
+  fonts:
+    - family: Ubuntu
+      fonts:
+        - asset: assets/fonts/Ubuntu-Regular.ttf
+          weight: 400
+
