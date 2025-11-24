@@ -685,6 +685,7 @@ class _FilterLocationDialogState extends State<FilterLocationDialog> {
   _OfferCardState createState() => _OfferCardState();
 }
 
+
 class _OfferCardState extends State<OfferCard> {
   bool _isFavorited = false;
 
