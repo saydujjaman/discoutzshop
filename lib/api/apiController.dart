@@ -605,7 +605,24 @@ static Future<List<dynamic>> fetchTabOfferTypes() async {
     }
   }
 
+static Future<List<dynamic>> fetchFeaturedOffers() async {
+  try {
+    final response = await http.get(
+      Uri.parse('$_baseUrl/api/offers-all?paginate=10&page=1'),
+    );
 
+    if (response.statusCode == 200) {
+      final json = jsonDecode(response.body);
+      if (json['status'] == 'success') {
+        return json['data'] as List<dynamic>;
+      }
+    }
+    return [];
+  } catch (e) {
+    print('Error fetching featured offers: $e');
+    return [];
+  }
+}
 
 
 }
