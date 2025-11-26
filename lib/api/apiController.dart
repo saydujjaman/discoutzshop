@@ -573,5 +573,40 @@ Future<List<Map<String, dynamic>>> getBrandStores(String slug) async {
   }
 }
 
+static Future<List<dynamic>> fetchTabOfferTypes() async {
+    final url = Uri.parse('$_baseUrl/api/offer-types');
+
+    try {
+      final response = await http.get(
+        url,
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+        },
+      );
+
+      if (response.statusCode == 200) {
+        final Map<String, dynamic> jsonResponse = jsonDecode(response.body);
+
+        if (jsonResponse['status'] == 'success' && jsonResponse['data'] != null) {
+          return jsonResponse['data'] as List<dynamic>;
+        } else {
+          throw Exception(jsonResponse['message'] ?? 'Invalid response format');
+        }
+      } else {
+        throw Exception('Server error: ${response.statusCode}');
+      }
+    } on http.ClientException {
+      throw Exception('No internet connection');
+    } catch (e) {
+      // Re-throw with clean message
+      if (e is Exception) rethrow;
+      throw Exception('Failed to load offers: $e');
+    }
+  }
+
+
+
+
 }
 

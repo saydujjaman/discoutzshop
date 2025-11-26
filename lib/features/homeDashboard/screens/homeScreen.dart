@@ -3,6 +3,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:discountzshop/features/authentication/login/screens/LoginScreen.dart';
 import 'package:discountzshop/features/homeDashboard/screens/SearchResultsScreen.dart';
 import 'package:discountzshop/features/homeDashboard/screens/WishlistScreen.dart';
+import 'package:discountzshop/features/homeDashboard/screens/widgets/DottedContainer.dart';
 import 'package:discountzshop/features/homeDashboard/screens/widgets/OfferCard.dart';
 import 'package:discountzshop/features/homeDashboard/screens/widgets/categoryGrid.dart';
 import 'package:discountzshop/features/homeDashboard/screens/widgets/wishlist_service.dart';
@@ -33,6 +34,8 @@ class _HomeScreenState extends State<HomeScreen> {
   final ValueNotifier<int> _currentIndex = ValueNotifier<int>(0);
   final CarouselSliderController _carouselController = CarouselSliderController();
   final TextEditingController _searchController = TextEditingController();
+  final ValueNotifier<int> _selectedDealTab = ValueNotifier<int>(0);
+  final ValueNotifier<int> _selectedDealsOfTheDayTab = ValueNotifier<int>(0);
 
   String userName = '';
   String membership = 'Silver Member';
@@ -47,6 +50,8 @@ class _HomeScreenState extends State<HomeScreen> {
 
   late Future<void> _fetchSlidersFuture;
   late Future<void> _fetchHomepageFuture;
+
+
 
   @override
   void initState() {
@@ -142,6 +147,8 @@ class _HomeScreenState extends State<HomeScreen> {
   void dispose() {
     _currentIndex.dispose();
     _searchController.dispose();
+    _selectedDealTab.dispose();
+    _selectedDealsOfTheDayTab.dispose();
     super.dispose();
   }
 
@@ -157,7 +164,6 @@ class _HomeScreenState extends State<HomeScreen> {
         child: Column(
           children: [
             _buildSearchBar(),
-
             Expanded(
               child: _isSearching
                   ? SearchResultsScreen(
@@ -252,7 +258,6 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  // Updated Search Bar — Icon on Right + Triggers Search
   Widget _buildSearchBar() {
     return Padding(
       padding: const EdgeInsets.all(16.0),
@@ -305,11 +310,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
           const SizedBox(height: TSizes.spaceBtwItems),
 
-          DealsTabSection(
-            dealsTabs: const ['Hot Deals', 'Cashback', 'Flat %', 'Buy 1 Get 1', 'Upto 50% Off', 'More'],
-            activeTab: 0,
-            onTabSelect: (index) {},
-          ),
+          DealsTabSection(selectedTabNotifier: _selectedDealTab),
 
           const SizedBox(height: TSizes.spaceBtwItems),
 
@@ -317,15 +318,19 @@ class _HomeScreenState extends State<HomeScreen> {
 
           const SizedBox(height: TSizes.spaceBtwItems),
 
-          DealsOfTheDaySection(
-            dealsTabs: const ['Hot Deals', 'Cashback', 'Flat %', 'Buy 1 Get 1', 'Upto 50% Off', 'More'],
-            activeTab: 0,
-            onTabSelect: (index) {},
-          ),
+          // CLICKABLE TABS SECTION 2 - DEALS OF THE DAY
+          DealsOfTheDaySection(selectedTabNotifier: _selectedDealsOfTheDayTab),
 
+
+          const SizedBox(height: TSizes.spaceBtwItems),
+          
           BottomSliderSection(fetchHomepageFuture: _fetchHomepageFuture),
 
+          const SizedBox(height: TSizes.spaceBtwItems),
+
           const ProductShowcaseSection(),
+
+          const SizedBox(height: TSizes.spaceBtwItems),
 
           const PartnerBrandsSection(),
 

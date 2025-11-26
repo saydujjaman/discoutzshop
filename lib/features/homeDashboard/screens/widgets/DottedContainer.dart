@@ -100,7 +100,7 @@ class DottedCustomContainer extends StatelessWidget {
                 ),
                 SizedBox(width: 4.0), // Use width for horizontal spacing in a Row
                 Text(
-                  '30% OFF',
+                  offerPercentage,
                   style: TextStyle(
                     fontSize: 16,
                     color: TColors.secondaryColor,
