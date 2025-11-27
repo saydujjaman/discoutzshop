@@ -332,6 +332,14 @@ class _HomeScreenState extends State<HomeScreen> {
 
           const SizedBox(height: TSizes.spaceBtwItems),
 
+          const ProductShowcaseSectionTwo(),
+
+          const SizedBox(height: TSizes.spaceBtwItems),
+
+          const TripleOfferSection(),
+
+          const SizedBox(height: TSizes.spaceBtwItems),
+
           const PartnerBrandsSection(),
 
           const SizedBox(height: 30),
