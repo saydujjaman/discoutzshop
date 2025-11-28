@@ -645,7 +645,7 @@ static Future<List<dynamic>> fetchLatestOffers() async {
 static Future<List<dynamic>> fetchTripleLatestOffers() async {
   try {
     final response = await http.get(
-      Uri.parse('$_baseUrl/api/offers-all?paginate=5&page=25'),
+      Uri.parse('$_baseUrl/api/offers-all?paginate=10&page=15'),
     );
 
     if (response.statusCode == 200) {
