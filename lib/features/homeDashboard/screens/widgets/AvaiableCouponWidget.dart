@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax_flutter/iconsax_flutter.dart';
-
 import '../../../../utils/constants/colors.dart';
 
 class CouponHeader extends StatefulWidget {
-  const CouponHeader({super.key});
+  // Callback to send the current search text to the parent
+  final ValueChanged<String> onSearchChanged;
+
+  const CouponHeader({super.key, required this.onSearchChanged});
 
   @override
   _CouponHeaderState createState() => _CouponHeaderState();
@@ -13,6 +15,10 @@ class CouponHeader extends StatefulWidget {
 class _CouponHeaderState extends State<CouponHeader> {
   bool _isSearchActive = false;
   final TextEditingController _searchController = TextEditingController();
+
+  void _performSearch() {
+    widget.onSearchChanged(_searchController.text);
+  }
 
   @override
   void dispose() {
@@ -30,33 +36,22 @@ class _CouponHeaderState extends State<CouponHeader> {
             style: TextStyle(
               fontSize: 18,
               fontWeight: FontWeight.bold,
-              color: Colors.black, // Replace with TColors.textColor if defined
+              color: Colors.black,
             ),
           ),
           const SizedBox(width: 5),
-          Icon(
-            Iconsax.ticket_discount,
-            color: TColors.primaryColor, // Replace with TColors.primaryColor
-            size: 28,
-          ),
-          const SizedBox(width: 5),
-          Spacer(),
+          Icon(Iconsax.ticket_discount, color: TColors.primaryColor, size: 28),
+          const Spacer(),
           IconButton(
-            icon: const Icon(
-              Iconsax.search_normal_copy,
-              color: TColors.primaryColor, // Replace with TColors.primaryColor
-              size: 28,
-            ),
-            onPressed: () {
-              setState(() {
-                _isSearchActive = true;
-              });
-            },
+            icon: const Icon(Iconsax.search_normal_copy,
+                color: TColors.primaryColor, size: 28),
+            onPressed: () => setState(() => _isSearchActive = true),
           ),
         ],
       ),
       secondChild: TextField(
         controller: _searchController,
+        onSubmitted: (_) => _performSearch(), // Search on Enter key
         decoration: InputDecoration(
           hintText: "Search Coupon Code",
           hintStyle: const TextStyle(color: Colors.grey),
@@ -66,22 +61,32 @@ class _CouponHeaderState extends State<CouponHeader> {
             borderRadius: BorderRadius.circular(10),
             borderSide: BorderSide.none,
           ),
-          contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-          suffixIcon: IconButton(
-            icon: const Icon(Iconsax.close_circle, color: Colors.grey),
-            onPressed: () {
-              setState(() {
-                _isSearchActive = false;
-                _searchController.clear();
-              });
-            },
+          contentPadding:
+              const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+          suffixIcon: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              IconButton(
+                icon: const Icon(Iconsax.search_normal_copy,
+                    color: TColors.primaryColor),
+                onPressed: _performSearch,
+              ),
+              IconButton(
+                icon: const Icon(Iconsax.close_circle, color: Colors.grey),
+                onPressed: () {
+                  setState(() {
+                    _isSearchActive = false;
+                    _searchController.clear();
+                  });
+                  widget.onSearchChanged(''); // clear filter
+                },
+              ),
+            ],
           ),
         ),
-        onChanged: (value) {
-          // Add search logic here, e.g., filter coupons based on value
-        },
       ),
-      crossFadeState: _isSearchActive ? CrossFadeState.showSecond : CrossFadeState.showFirst,
+      crossFadeState:
+          _isSearchActive ? CrossFadeState.showSecond : CrossFadeState.showFirst,
       duration: const Duration(milliseconds: 300),
     );
   }

@@ -1,3 +1,4 @@
+import 'package:discountzshop/features/offers/screens/OfferDetailsScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:iconsax_flutter/iconsax_flutter.dart';
@@ -63,51 +64,72 @@ class DottedBorderPainter extends CustomPainter {
 class DottedCustomContainer extends StatelessWidget {
   final String imageString;
   final String offerPercentage;
+  final String slug;
 
-  const DottedCustomContainer({super.key, required this.imageString, required this.offerPercentage});
+  const DottedCustomContainer({
+    super.key, 
+    required this.imageString, 
+    required this.offerPercentage,
+    required this.slug
+  });
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Container(
-        // padding: EdgeInsets.all(4),
-        decoration: BoxDecoration(
-          // color: Colors.white, // Inner background color
-          borderRadius: BorderRadius.circular(8.0),
-          // We'll draw the dotted border using CustomPaint outside this decoration
-        ),
-        child: CustomPaint(
-          painter: DottedBorderPainter(
-            color: Colors.grey,
-            strokeWidth: 1.0,
-            dash: 4.0, // Length of each dash
-            gap: 4.0,  // Length of the gap between dashes
-            borderRadius: BorderRadius.circular(8.0),
+    return GestureDetector(
+      onTap: () {
+        print('Offer clicked');
+        print('Offer Slug: $slug');
+        print('Offer Percentage: $offerPercentage');
+        
+        // Navigate to OffersDetailScreen
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => OfferDetailsScreen(slug: slug),
           ),
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 4.0,vertical: 20), // Padding inside the dotted border
-            child: Row(
-              mainAxisSize: MainAxisSize.min, // To make the row only take necessary space
-              children: [
-                Expanded(
-                  child: Image.network(
-                    imageString,
-                    fit: BoxFit.cover, // Ensure the image covers the space
-                    errorBuilder: (context, error, stackTrace) {
-                      return Icon(Iconsax.emoji_sad);
-                    },
+        );
+      },
+      child: Center(
+        child: Container(
+          // padding: EdgeInsets.all(4),
+          decoration: BoxDecoration(
+            // color: Colors.white, // Inner background color
+            borderRadius: BorderRadius.circular(8.0),
+            // We'll draw the dotted border using CustomPaint outside this decoration
+          ),
+          child: CustomPaint(
+            painter: DottedBorderPainter(
+              color: Colors.grey,
+              strokeWidth: 1.0,
+              dash: 4.0, // Length of each dash
+              gap: 4.0,  // Length of the gap between dashes
+              borderRadius: BorderRadius.circular(8.0),
+            ),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 4.0,vertical: 20), // Padding inside the dotted border
+              child: Row(
+                mainAxisSize: MainAxisSize.min, // To make the row only take necessary space
+                children: [
+                  Expanded(
+                    child: Image.network(
+                      imageString,
+                      fit: BoxFit.cover, // Ensure the image covers the space
+                      errorBuilder: (context, error, stackTrace) {
+                        return Icon(Iconsax.emoji_sad);
+                      },
+                    ),
                   ),
-                ),
-                SizedBox(width: 4.0), // Use width for horizontal spacing in a Row
-                Text(
-                  offerPercentage,
-                  style: TextStyle(
-                    fontSize: 16,
-                    color: TColors.secondaryColor,
-                    fontWeight: FontWeight.bold,
+                  SizedBox(width: 4.0), // Use width for horizontal spacing in a Row
+                  Text(
+                    offerPercentage,
+                    style: TextStyle(
+                      fontSize: 16,
+                      color: TColors.secondaryColor,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ),
@@ -115,5 +137,3 @@ class DottedCustomContainer extends StatelessWidget {
     );
   }
 }
-
-// A simple main function to run the DottedLinedContainer for demonstration

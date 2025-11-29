@@ -321,7 +321,6 @@ class _HomeScreenState extends State<HomeScreen> {
           // CLICKABLE TABS SECTION 2 - DEALS OF THE DAY
           DealsOfTheDaySection(selectedTabNotifier: _selectedDealsOfTheDayTab),
 
-
           const SizedBox(height: TSizes.spaceBtwItems),
           
           BottomSliderSection(fetchHomepageFuture: _fetchHomepageFuture),

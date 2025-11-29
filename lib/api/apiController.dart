@@ -49,6 +49,9 @@ class ApiController {
     }
   }
 
+
+
+
   Future<HomepageResponse> getHomepage() async {
     try {
       // print('Making API call to $_baseUrl/homepage');
@@ -659,6 +662,42 @@ static Future<List<dynamic>> fetchTripleLatestOffers() async {
     return [];
   }
 }
+
+static Future<List<Map<String, dynamic>>> fetchPartnerBrands() async {
+    try {
+      final response = await http.get(
+        Uri.parse('$_baseUrl/api/brands-all'),
+      );
+
+      if (response.statusCode == 200) {
+        final json = jsonDecode(response.body);
+        if (json['status'] == 'success') {
+          List<Map<String, dynamic>> brands = [];
+
+          for (var category in json['data']) {
+            final List<dynamic> brandList = category['brands'] ?? [];
+            for (var brand in brandList) {
+              final String? logo = brand['logo']?.toString();
+              final String? name = brand['name']?.toString();
+              final String? url = brand['url']?.toString();
+
+              if (logo != null && logo.isNotEmpty && name != null && url != null) {
+                brands.add({
+                  'name': name,
+                  'logo': logo,
+                  'url': url,
+                });
+              }
+            }
+          }
+          return brands;
+        }
+      }
+    } catch (e) {
+      print('Error fetching partner brands: $e');
+    }
+    return [];
+  }
 
 
 
